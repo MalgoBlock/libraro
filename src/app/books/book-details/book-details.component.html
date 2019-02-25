@@ -1,0 +1,12 @@
+<div class="list-group-item">
+  <h5 class="list-group-item-heading">{{ book.title }}</h5>
+  <p class="list-group-item-text">{{ book.author }}</p>
+  <p class="list-group-item-text">{{ book.description }}</p>
+  <br>
+  <p class="list-group-item-text">Current status: <span *ngIf="!book.onLoan">available</span>
+                                                  <span *ngIf="book.onLoan">on loan</span></p>
+  <hr>
+  <button *ngIf="enableBorrowing" class="btn btn-secondary" (click)="onBorrow()">Borrow</button>
+  <button *ngIf="enableReturn" class="btn btn-secondary" (click)="onReturn()">Return</button>
+</div>
+

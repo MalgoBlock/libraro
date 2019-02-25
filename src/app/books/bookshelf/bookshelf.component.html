@@ -1,3 +1,23 @@
-<p>
-  bookshelf works!
-</p>
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-5 bg-secondary">
+          <br>
+          <p>Libraro Bookshelf:</p>
+          <a class="list-group-item clearfix d-flex text-dark" style="cursor: pointer;"
+            *ngFor="let book of bookshelf; let i=index"
+            [routerLink]="['/bookshelf', i]">
+              <h5 class="list-group-item-heading">{{ book.title }}</h5>
+              <p class="list-group-item-text pl-3">- {{ book.author }}</p>
+              <p class="list-group-item-text text-success ml-auto" *ngIf="!book.onLoan">available</p>
+              <p class="list-group-item-text text-danger ml-auto" *ngIf="book.onLoan">on loan</p>
+          </a>
+          <br><br><br>
+      </div>
+      <div class="col-7 bg-secondary">
+        <br>
+        <p>Book details:</p>
+        <router-outlet></router-outlet>
+        <br><br><br>
+    </div>
+  </div>
+</div>

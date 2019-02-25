@@ -7,7 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './core/home/home.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { BookshelfComponent } from './books/bookshelf/bookshelf.component';
-import { BookListComponent } from './book-list/book-list.component';
+import { BookListComponent } from './users/book-list/book-list.component';
+import { BookDetailsComponent } from './books/book-details/book-details.component';
+import { DropdownDirective } from './core/dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { BookListComponent } from './book-list/book-list.component';
     HomeComponent,
     FooterComponent,
     BookshelfComponent,
-    BookListComponent
+    BookListComponent,
+    BookDetailsComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule,
