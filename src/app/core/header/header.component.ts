@@ -11,21 +11,36 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  currentUser: number;
-  currentName: string;
+  currentUserIndex: number;
+  currentUser: User;
+  currentLimit: number;
+  isAdmin = false;
+
   usersList: User[];
-  subscription: Subscription;
+  subscription1: Subscription;
+  subscription2: Subscription;
 
   constructor(private userService: UserService,
               private router: Router) { }
 
   ngOnInit() {
     this.usersList = this.userService.getUsers();
-    // this.currentUser = this.userService.checkCurrent();
-    this.subscription = this.userService.currentChanged.subscribe(
+    this.subscription1 = this.userService.currentChanged.subscribe(
       (index: number) => {
-        this.currentUser = index;
-        index !== undefined ? this.currentName = this.usersList[index].name : this.currentName = undefined;
+        this.currentUserIndex = index;
+        if (index !== undefined) {
+          this.currentUser = this.userService.getUser(index);
+          this.currentUser.accessLevel === 'admin' ? this.isAdmin = true : this.isAdmin = false;
+          this.currentLimit = this.currentUser.bookLimit - this.userService.checkUserBookLimit();
+        } else {
+          this.currentUser = undefined;
+          this.currentLimit = undefined;
+        }
+      }
+    );
+    this.subscription2 = this.userService.currentLimitChanged.subscribe(
+      (borrowed: number) => {
+        this.currentLimit = this.currentUser.bookLimit - borrowed;
       }
     );
   }
@@ -41,6 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscription1.unsubscribe();
+    this.subscription2.unsubscribe();
   }
 }

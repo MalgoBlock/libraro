@@ -12,7 +12,7 @@ export class UserService {
   private currentUserId: number;
   currentChanged = new Subject<number>();
   currentListChanged = new Subject<User>();
-
+  currentLimitChanged = new Subject<number>();
 
   private userList: User[] = [
     new User ('Frank', 'user'),
@@ -46,6 +46,11 @@ export class UserService {
     this.currentChanged.next(this.currentUserId);
   }
 
+  checkUserBookLimit() {
+    const user = this.userList[this.currentUserId];
+    return user.bookLimit - user.booksOnLoan.length;
+  }
+
   // manage books
 
   addNewBook(book: Book) {
@@ -65,6 +70,7 @@ export class UserService {
 
   private pushUserUpdate() {
     this.currentListChanged.next(this.userList[this.currentUserId]);
+    this.currentLimitChanged.next(this.checkUserBookLimit());
   }
 
 

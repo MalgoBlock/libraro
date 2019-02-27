@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Book } from '../../books/book.model';
 import { UserService } from '../user.service';
 import { User } from '../user.model';
+import { BookService } from 'src/app/books/book.service';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class BookListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private userService: UserService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private bookService: BookService) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -34,6 +36,15 @@ export class BookListComponent implements OnInit, OnDestroy {
         this.currentUser = user;
       }
     );
+  }
+
+  onReturn(book: Book) {
+    this.userService.removeBook(book);
+    book.onLoan = false;
+    // this.enableReturn = false;
+    // this.enableBorrowing = true;
+    const index = this.bookService.checkIndex(book);
+    this.bookService.editBook(index, book);
   }
 
   ngOnDestroy() {

@@ -9,7 +9,7 @@ export class BookService {
 
   listChanged = new Subject<Book[]>();
 
-  private bookColection: Book[] = [
+  private bookCollection: Book[] = [
     new Book('The lord of the rings',
       'J.R.R. Tolkien',
       'Epic high fantasy novel'),
@@ -22,8 +22,8 @@ export class BookService {
   ];
 
   private sortCollection(property: string) {
-    console.log(this.bookColection);
-    return this.bookColection.sort((a, b) => {
+    console.log(this.bookCollection);
+    return this.bookCollection.sort((a, b) => {
       let propertyA: any;
       let propertyB: any;
 
@@ -49,22 +49,26 @@ export class BookService {
   }
 
   getBook(index: number) {
-    return this.bookColection[index];
+    return this.bookCollection[index];
   }
 
   addBook(book: Book) {
-    this.bookColection.push(book);
+    this.bookCollection.push(book);
     this.pushUpdate();
   }
 
   editBook(index: number, book: Book) {
-    this.bookColection[index] = book;
+    this.bookCollection[index] = book;
     this.pushUpdate();
   }
 
   removeBook(index: number) {
-    this.bookColection.splice(index, 1);
+    this.bookCollection.splice(index, 1);
     this.pushUpdate();
+  }
+
+  checkIndex(book: Book) {
+    return this.bookCollection.indexOf(book);
   }
 
   private pushUpdate() {

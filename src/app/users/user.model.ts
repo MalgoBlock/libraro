@@ -10,6 +10,6 @@ export class User {
         this.name = name;
         this.booksOnLoan = [];
         this.accessLevel = accessLevel;
-        accessLevel === 'admin' ? this.bookLimit = 0 : this.bookLimit = 5;
+        accessLevel === 'admin' ? this.bookLimit = 0 : this.bookLimit = 2;
     }
 }

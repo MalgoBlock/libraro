@@ -26,7 +26,8 @@ export class BookDetailsComponent implements OnInit {
         this.index = params.id;
         this.book = this.bookService.getBook(this.index);
         if (this.userService.checkCurrent() !== undefined) { // check if any user is selected
-          if ( !this.book.onLoan ) { // this book is available
+          const limit: number = this.userService.checkUserBookLimit();
+          if ( !this.book.onLoan && limit > 0 ) { // this book is available & user limit != 0
             this.enableBorrowing = true;
             this.enableReturn = false;
           } else if (this.userService.checkBook(this.book) !== -1) { // this book is on users list

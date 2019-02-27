@@ -10,6 +10,8 @@ import { BookshelfComponent } from './books/bookshelf/bookshelf.component';
 import { BookListComponent } from './users/book-list/book-list.component';
 import { BookDetailsComponent } from './books/book-details/book-details.component';
 import { DropdownDirective } from './core/dropdown.directive';
+import { ManageBooksComponent } from './books/manage-books/manage-books.component';
+import { ManageUsersComponent } from './users/manage-users/manage-users.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { DropdownDirective } from './core/dropdown.directive';
     BookshelfComponent,
     BookListComponent,
     BookDetailsComponent,
-    DropdownDirective
+    DropdownDirective,
+    ManageBooksComponent,
+    ManageUsersComponent
   ],
   imports: [
     BrowserModule,
