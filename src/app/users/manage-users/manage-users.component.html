@@ -1,3 +1,28 @@
-<p>
-  manage-users works!
-</p>
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-6 bg-secondary">
+          <br>
+          <p>Manage Users:</p>
+          <a class="list-group-item clearfix text-dark" style="cursor: pointer;"
+            *ngFor="let user of users; let i=index">
+                <div class="d-flex align-items-baseline" *ngIf="user.accessLevel !== 'admin'">
+                  <div class="col-6 d-flex align-items-baseline">
+                    <h5 class="list-group-item-heading">{{ user.name }}</h5>
+                    <p class="list-group-item-text pl-3">- {{ user.bookLimit }}</p>  
+                  </div>
+                  <div class="col-6 d-flex align-items-baseline">
+                    <button class="btn btn-secondary mr-2 ml-auto" (click)="onEdit(i)">Edit</button>
+                    <button class="btn btn-secondary" (click)="onDelete(i)">Delete</button>            
+                  </div>  
+                </div>
+          </a>
+          <br>
+          <button class="btn btn-light text-info" (click)="onAdd()">Add new</button>
+          <br><br><br>
+      </div>
+      <div class="col-6 bg-secondary">
+        <br>
+        <router-outlet></router-outlet>
+      </div>
+  </div>
+</div>

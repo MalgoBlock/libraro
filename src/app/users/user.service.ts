@@ -58,8 +58,20 @@ export class UserService {
     this.pushUserUpdate();
   }
 
-  checkBook(book: Book) {
+  checkBook(book: Book) { // find an id of a book on current user's list
     return this.userList[this.currentUserId].booksOnLoan.indexOf(book);
+  }
+
+  findBook(book: Book) { // find which user holds a particular book
+    let userId;
+    for (let i = 0; i < this.userList.length; i++) {
+        const bookId = this.userList[i].booksOnLoan.indexOf(book);
+        if (bookId !== -1) {
+          userId = i;
+          break;
+        }
+    }
+    return userId;
   }
 
   removeBook(book: Book) {

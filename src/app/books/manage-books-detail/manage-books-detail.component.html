@@ -1,0 +1,45 @@
+<h5 *ngIf="!isNew; else newBook">
+  Edit book:
+</h5>
+<ng-template #newBook><h5>Add new:</h5></ng-template>
+<div class="row col-12">
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="form-group">
+        <label for="title">Title:</label>
+        <input 
+        type="text" 
+        id="title" 
+        class="form-control"
+        [ngModel]="title"
+        name="title"
+        required>
+    </div>  
+    <div class="form-group">
+        <label for="author">Author:</label>
+        <input 
+        type="text" 
+        id="author" 
+        class="form-control"
+        [ngModel]="author"
+        name="author"
+        required>
+    </div>
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea 
+        type="text" 
+        id="description" 
+        class="form-control"
+        [ngModel]="description"
+        name="description"
+        required
+        rows="4"
+        cols="60"></textarea>
+    </div>            
+    <button 
+        class="btn btn-light text-info" 
+        type="submit"
+        [disabled]="!f.valid">{{ isNew ? 'Add' : 'Update' }}</button>
+  </form>
+</div>
+<br><br><br>

@@ -7,6 +7,8 @@ import { BookListComponent } from './users/book-list/book-list.component';
 import { BookDetailsComponent } from './books/book-details/book-details.component';
 import { ManageBooksComponent } from './books/manage-books/manage-books.component';
 import { ManageUsersComponent } from './users/manage-users/manage-users.component';
+import { ManageBooksDetailComponent } from './books/manage-books-detail/manage-books-detail.component';
+import { ManageUsersDetailComponent } from './users/manage-users-detail/manage-users-detail.component';
 
 const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -15,8 +17,14 @@ const routes: Routes = [
             {path: ':id', component: BookDetailsComponent}
         ]},
     {path: 'booklist/:id', component: BookListComponent},
-    {path: 'manageBooks', component: ManageBooksComponent},
-    {path: 'manageUsers', component: ManageUsersComponent}
+    {path: 'manageBooks', component: ManageBooksComponent,
+        children: [
+            {path: ':id', component: ManageBooksDetailComponent}
+        ]},
+    {path: 'manageUsers', component: ManageUsersComponent,
+        children: [
+            {path: ':id', component: ManageUsersDetailComponent}
+        ]}
 ];
 
 @NgModule({

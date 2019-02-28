@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './core/header/header.component';
@@ -12,6 +13,8 @@ import { BookDetailsComponent } from './books/book-details/book-details.componen
 import { DropdownDirective } from './core/dropdown.directive';
 import { ManageBooksComponent } from './books/manage-books/manage-books.component';
 import { ManageUsersComponent } from './users/manage-users/manage-users.component';
+import { ManageBooksDetailComponent } from './books/manage-books-detail/manage-books-detail.component';
+import { ManageUsersDetailComponent } from './users/manage-users-detail/manage-users-detail.component';
 
 @NgModule({
   declarations: [
@@ -24,11 +27,14 @@ import { ManageUsersComponent } from './users/manage-users/manage-users.componen
     BookDetailsComponent,
     DropdownDirective,
     ManageBooksComponent,
-    ManageUsersComponent
+    ManageUsersComponent,
+    ManageBooksDetailComponent,
+    ManageUsersDetailComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
