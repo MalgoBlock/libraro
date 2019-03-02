@@ -1,3 +1,20 @@
-<p>
-  manage-users-detail works!
-</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="bg-secondary">
+            <h4>{{ user.name }}</h4>
+            <hr>
+            <p>Book limit: {{ user.bookLimit }}</p> 
+            <hr>
+            <p *ngIf="hasBooks">Books on loan:</p>
+            <ul>
+              <li *ngFor="let book of user.booksOnLoan; let i=index">{{ book.title }} - {{ book.author }}</li>
+            </ul>
+            <hr>
+            <button class="btn btn-light text-info" (click)="onEdit()">Edit</button>
+            <button class="btn btn-light text-danger ml-3" (click)="onRemove()" [disabled]="hasBooks">Remove</button>
+            <br><br>
+            <p class="text-light" *ngIf="hasBooks">Note: only user without any books on loan can be removed.</p>
+            <br><br><br>
+        </div>
+    </div>
+</div>

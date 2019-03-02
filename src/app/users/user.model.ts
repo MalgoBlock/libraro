@@ -6,10 +6,10 @@ export class User {
     public bookLimit: number;
     public accessLevel: string;
 
-    constructor(name: string, accessLevel: string) {
+    constructor(name: string, bookLimit: number, accessLevel: string) {
         this.name = name;
         this.booksOnLoan = [];
+        this.bookLimit = bookLimit;
         this.accessLevel = accessLevel;
-        accessLevel === 'admin' ? this.bookLimit = 0 : this.bookLimit = 2;
     }
 }

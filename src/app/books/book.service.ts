@@ -22,7 +22,6 @@ export class BookService {
   ];
 
   private sortCollection(property: string) {
-    console.log(this.bookCollection);
     return this.bookCollection.sort((a, b) => {
       let propertyA: any;
       let propertyB: any;

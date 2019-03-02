@@ -13,11 +13,12 @@ export class UserService {
   currentChanged = new Subject<number>();
   currentListChanged = new Subject<User>();
   currentLimitChanged = new Subject<number>();
+  userListChanged = new Subject<User[]>();
 
   private userList: User[] = [
-    new User ('Frank', 'user'),
-    new User ('Bob', 'user'),
-    new User ('Librarian', 'admin')
+    new User ('Bob', 3, 'user'),
+    new User ('Frank', 2, 'user'),
+    new User ('Librarian', 0, 'admin')
   ];
 
   getUsers() {
@@ -80,11 +81,49 @@ export class UserService {
     this.pushUserUpdate();
   }
 
+  removeBookAsAdmin(book: Book, userId: number) {
+    const index = this.userList[userId].booksOnLoan.indexOf(book);
+    this.userList[userId].booksOnLoan.splice(index, 1);
+    this.pushUserUpdate();
+  }
+
   private pushUserUpdate() {
     this.currentListChanged.next(this.userList[this.currentUserId]);
     this.currentLimitChanged.next(this.checkUserBookLimit());
   }
 
+  // manage users
 
+  editUser(index: number, user: User) {
+    this.userList[index] = user;
+    this.pushListUpdate();
+  }
+
+  addUser(user: User) {
+    this.userList.push(user);
+    this.sortList();
+    this.pushListUpdate();
+  }
+
+  removeUser(index: number) {
+    this.userList.splice(index, 1);
+    this.pushListUpdate();
+  }
+
+  private pushListUpdate() {
+    this.userListChanged.next(this.userList.slice());
+  }
+
+  private sortList() {
+    this.userList.sort(
+      (a, b) => {
+        if (a.accessLevel < b.accessLevel) { return 1; }
+        if (a.accessLevel > b.accessLevel) { return -1; }
+        if (a.name < b.name ) { return -1; }
+        if (a.name > b.name ) { return 1; }
+        return 0;
+      }
+    );
+  }
 
 }

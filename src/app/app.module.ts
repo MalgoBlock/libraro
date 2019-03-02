@@ -15,6 +15,7 @@ import { ManageBooksComponent } from './books/manage-books/manage-books.componen
 import { ManageUsersComponent } from './users/manage-users/manage-users.component';
 import { ManageBooksDetailComponent } from './books/manage-books-detail/manage-books-detail.component';
 import { ManageUsersDetailComponent } from './users/manage-users-detail/manage-users-detail.component';
+import { ManageUsersEditComponent } from './users/manage-users-edit/manage-users-edit.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ManageUsersDetailComponent } from './users/manage-users-detail/manage-u
     ManageBooksComponent,
     ManageUsersComponent,
     ManageBooksDetailComponent,
-    ManageUsersDetailComponent
+    ManageUsersDetailComponent,
+    ManageUsersEditComponent
   ],
   imports: [
     BrowserModule,

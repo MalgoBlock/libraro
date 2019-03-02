@@ -41,8 +41,6 @@ export class BookListComponent implements OnInit, OnDestroy {
   onReturn(book: Book) {
     this.userService.removeBook(book);
     book.onLoan = false;
-    // this.enableReturn = false;
-    // this.enableBorrowing = true;
     const index = this.bookService.checkIndex(book);
     this.bookService.editBook(index, book);
   }

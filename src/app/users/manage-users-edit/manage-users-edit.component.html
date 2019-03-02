@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="bg-secondary w-100">
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input 
+                    type="text" 
+                    id="name" 
+                    class="form-control"
+                    [ngModel]="name"
+                    name="name"
+                    required>
+                </div>  
+                <div class="form-group">
+                    <label for="bookLimit">Book limit: (max. 9)</label>
+                    <input 
+                    type="number" 
+                    id="bookLimit" 
+                    class="form-control"
+                    [ngModel]="bookLimit"
+                    name="bookLimit"
+                    min=1
+                    max=9
+                    pattern="[1-9]"
+                    required>
+                </div> 
+                <button 
+                    class="btn btn-light text-info" 
+                    type="submit"
+                    [disabled]="!f.valid">{{ isNew ? 'Add' : 'Update' }}</button>
+              </form>
+              <br>
+              <div *ngIf="!isNew">
+                  <p *ngIf="hasBooks">Books on loan:</p>
+                  <a class="col-12 list-group-item clearfix d-flex text-dark" style="cursor: pointer;"
+                    *ngFor="let book of user.booksOnLoan">
+                      <h5 class="list-group-item-heading">{{ book.title }}</h5>
+                      <p class="list-group-item-text pl-3">- {{ book.author }}</p>
+                      <button class="btn btn-secondary text-danger ml-auto" (click)="onReturn(book)">Return</button>
+                  </a>         
+              </div>
+              <br><br>      
+        </div>
+    </div>
+</div>

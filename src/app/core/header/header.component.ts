@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   usersList: User[];
   subscription1: Subscription;
   subscription2: Subscription;
+  subscription3: Subscription;
 
   constructor(private userService: UserService,
               private router: Router) { }
@@ -43,6 +44,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.currentLimit = this.currentUser.bookLimit - borrowed;
       }
     );
+    this.subscription3 = this.userService.userListChanged.subscribe(
+      (newList: User[]) => {
+        this.usersList = newList;
+      }
+    );
   }
 
   onSelect(index: number) {
@@ -53,6 +59,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onDeselect() {
     this.userService.deselectCurrent();
     this.router.navigate(['/']);
+    this.isAdmin = false;
   }
 
   ngOnDestroy() {
