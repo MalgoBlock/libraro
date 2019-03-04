@@ -7,8 +7,7 @@ import { UserService } from 'src/app/users/user.service';
 
 @Component({
   selector: 'app-book-details',
-  templateUrl: './book-details.component.html',
-  styleUrls: ['./book-details.component.css']
+  templateUrl: './book-details.component.html'
 })
 export class BookDetailsComponent implements OnInit {
   book: Book;

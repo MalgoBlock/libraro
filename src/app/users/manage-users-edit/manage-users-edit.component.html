@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="bg-secondary w-100">
-            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <form (ngSubmit)="onSubmit(form)" #form="ngForm">
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input 
@@ -28,7 +28,7 @@
                 <button 
                     class="btn btn-light text-info" 
                     type="submit"
-                    [disabled]="!f.valid">{{ isNew ? 'Add' : 'Update' }}</button>
+                    [disabled]="!form.valid">{{ isNew ? 'Add' : 'Update' }}</button>
               </form>
               <br>
               <div *ngIf="!isNew">

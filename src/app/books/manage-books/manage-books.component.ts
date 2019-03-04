@@ -8,8 +8,7 @@ import { UserService } from 'src/app/users/user.service';
 
 @Component({
   selector: 'app-manage-books',
-  templateUrl: './manage-books.component.html',
-  styleUrls: ['./manage-books.component.css']
+  templateUrl: './manage-books.component.html'
 })
 export class ManageBooksComponent implements OnInit, OnDestroy {
   books: Book[];

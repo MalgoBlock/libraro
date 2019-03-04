@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './core/home/home.component';
+import { HomeComponent } from './layout/home/home.component';
 import { BookshelfComponent } from './books/bookshelf/bookshelf.component';
 import { BookListComponent } from './users/book-list/book-list.component';
 import { BookDetailsComponent } from './books/book-details/book-details.component';

@@ -6,8 +6,7 @@ import { BookService } from '../book.service';
 
 @Component({
   selector: 'app-bookshelf',
-  templateUrl: './bookshelf.component.html',
-  styleUrls: ['./bookshelf.component.css']
+  templateUrl: './bookshelf.component.html'
 })
 export class BookshelfComponent implements OnInit, OnDestroy {
 
