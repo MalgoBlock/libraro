@@ -5,7 +5,7 @@
           <h5>{{ currentUser.name }}</h5>
           <hr>
           <p>Books on loan:</p>
-          <a class="col-6 list-group-item clearfix d-flex text-dark" style="cursor: pointer;"
+          <a class="col-md-6 list-group-item clearfix d-flex text-dark" style="cursor: pointer;"
             *ngFor="let book of userBooks; let i=index">
               <h5 class="list-group-item-heading">{{ book.title }}</h5>
               <p class="list-group-item-text pl-3">- {{ book.author }}</p>

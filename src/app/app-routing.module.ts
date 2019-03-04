@@ -10,6 +10,7 @@ import { ManageUsersComponent } from './users/manage-users/manage-users.componen
 import { ManageBooksDetailComponent } from './books/manage-books-detail/manage-books-detail.component';
 import { ManageUsersDetailComponent } from './users/manage-users-detail/manage-users-detail.component';
 import { ManageUsersEditComponent } from './users/manage-users-edit/manage-users-edit.component';
+import { RoleGuardService } from './role-guard.service';
 
 const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -17,16 +18,17 @@ const routes: Routes = [
         children: [
             {path: ':id', component: BookDetailsComponent}
         ]},
-    {path: 'booklist/:id', component: BookListComponent},
-    {path: 'manageBooks', component: ManageBooksComponent,
+    {path: 'booklist/:id', component: BookListComponent, canActivate: [RoleGuardService], data: {role: 'user'}},
+    {path: 'manageBooks', component: ManageBooksComponent, canActivate: [RoleGuardService], data: {role: 'admin'},
         children: [
             {path: ':id', component: ManageBooksDetailComponent}
         ]},
-    {path: 'manageUsers', component: ManageUsersComponent,
+    {path: 'manageUsers', component: ManageUsersComponent, canActivate: [RoleGuardService], data: {role: 'admin'},
         children: [
             {path: ':id', component: ManageUsersDetailComponent},
             {path: 'edit/:id', component: ManageUsersEditComponent}
-        ]}
+        ]},
+    {path: '**' , redirectTo: '', pathMatch: 'full'}
 ];
 
 @NgModule({

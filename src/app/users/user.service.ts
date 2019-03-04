@@ -38,6 +38,14 @@ export class UserService {
     return this.currentUserId;
   }
 
+  checkCurrentRole() {
+    if (this.currentUserId === undefined) {
+      const noUser = 'none';
+      return noUser;
+    }
+    return this.userList[this.currentUserId].accessLevel;
+  }
+
   deselectCurrent() {
     this.currentUserId = undefined;
     this.pushCurrentUpdate();
