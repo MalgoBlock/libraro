@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { BookService } from '../book.service';
 import { Book } from '../book.model';
@@ -18,7 +18,8 @@ export class ManageBooksDetailComponent implements OnInit {
   description: string;
 
   constructor(private route: ActivatedRoute,
-              private bookService: BookService) { }
+              private bookService: BookService,
+              private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -51,6 +52,6 @@ export class ManageBooksDetailComponent implements OnInit {
       this.book = new Book(form.value.title, form.value.author, form.value.description);
       this.bookService.addBook(this.book);
     }
-
+    this.router.navigate(['/manageBooks']);
   }
 }
