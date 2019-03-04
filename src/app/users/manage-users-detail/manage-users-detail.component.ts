@@ -7,8 +7,7 @@ import { User } from '../user.model';
 
 @Component({
   selector: 'app-manage-users-detail',
-  templateUrl: './manage-users-detail.component.html',
-  styleUrls: ['./manage-users-detail.component.css']
+  templateUrl: './manage-users-detail.component.html'
 })
 export class ManageUsersDetailComponent implements OnInit {
   userId: number;

@@ -6,8 +6,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-manage-users',
-  templateUrl: './manage-users.component.html',
-  styleUrls: ['./manage-users.component.css']
+  templateUrl: './manage-users.component.html'
 })
 export class ManageUsersComponent implements OnInit, OnDestroy {
   users: User[];

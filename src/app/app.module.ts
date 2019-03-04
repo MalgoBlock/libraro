@@ -3,14 +3,14 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './core/header/header.component';
+import { HeaderComponent } from './layout/header/header.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HomeComponent } from './core/home/home.component';
-import { FooterComponent } from './core/footer/footer.component';
+import { HomeComponent } from './layout/home/home.component';
+import { FooterComponent } from './layout/footer/footer.component';
 import { BookshelfComponent } from './books/bookshelf/bookshelf.component';
 import { BookListComponent } from './users/book-list/book-list.component';
 import { BookDetailsComponent } from './books/book-details/book-details.component';
-import { DropdownDirective } from './core/dropdown.directive';
+import { DropdownDirective } from './layout/dropdown.directive';
 import { ManageBooksComponent } from './books/manage-books/manage-books.component';
 import { ManageUsersComponent } from './users/manage-users/manage-users.component';
 import { ManageBooksDetailComponent } from './books/manage-books-detail/manage-books-detail.component';
