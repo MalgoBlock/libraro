@@ -3,13 +3,13 @@ export class Book {
     public author: string;
     public description: string;
     public onLoan: boolean;
-    public borrowedBy: number;
+    public waitingList: number[];
 
     constructor(title: string, author: string, description: string) {
         this.title = title;
         this.author = author;
         this.description = description;
         this.onLoan = false;
-        this.borrowedBy = undefined;
+        this.waitingList = [];
     }
 }

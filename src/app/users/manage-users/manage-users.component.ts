@@ -25,7 +25,8 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
   }
 
   onDetails(index: number) {
-    this.router.navigate(['/manageUsers', index]);
+    const uid = this.users[index].uid;
+    this.router.navigate(['/manageUsers', uid]);
   }
 
   onAdd() {

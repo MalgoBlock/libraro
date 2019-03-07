@@ -26,10 +26,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.usersList = this.userService.getUsers();
     this.subscription1 = this.userService.currentChanged.subscribe(
-      (index: number) => {
-        this.currentUserIndex = index;
-        if (index !== undefined) {
-          this.currentUser = this.userService.getUser(index);
+      (uid: number) => {
+        this.currentUserIndex = uid;
+        if (uid !== undefined) {
+          this.currentUser = this.userService.getUserByUid(uid);
           this.currentUser.accessLevel === 'admin' ? this.isAdmin = true : this.isAdmin = false;
           this.currentLimit = this.currentUser.bookLimit - this.userService.checkUserBookLimit();
         } else {
@@ -51,7 +51,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSelect(index: number) {
-    this.userService.setCurrent(index);
+    const userId = this.usersList[index].uid;
+    this.userService.setCurrent(userId);
     this.router.navigate(['/']);
   }
 

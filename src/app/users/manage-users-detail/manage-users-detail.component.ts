@@ -13,6 +13,7 @@ export class ManageUsersDetailComponent implements OnInit {
   userId: number;
   user: User;
   hasBooks: boolean;
+  hasWait: boolean;
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
@@ -21,9 +22,10 @@ export class ManageUsersDetailComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       (params) => {
-        this.userId = params.id;
-        this.user = this.userService.getUser(this.userId);
+        this.userId = +params.id;
+        this.user = this.userService.getUserByUid(this.userId);
         this.user.booksOnLoan.length === 0 ? this.hasBooks = false : this.hasBooks = true;
+        this.user.waitingList.length === 0 ? this.hasWait = false : this.hasWait = true;
       }
     );
   }

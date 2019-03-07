@@ -10,10 +10,15 @@
               <li *ngFor="let book of user.booksOnLoan; let i=index">{{ book.title }} - {{ book.author }}</li>
             </ul>
             <hr>
+            <p *ngIf="hasWait">Books on waiting list:</p>
+            <ul>
+              <li *ngFor="let bookWait of user.waitingList; let i=index">{{ bookWait.title }} - {{ bookWait.author }}</li>
+            </ul>
+            <hr>
             <button class="btn btn-light text-info" (click)="onEdit()">Edit</button>
-            <button class="btn btn-light text-danger ml-3" (click)="onRemove()" [disabled]="hasBooks">Remove</button>
+            <button class="btn btn-light text-danger ml-3" (click)="onRemove()" [disabled]="hasBooks || hasWait">Remove</button>
             <br><br>
-            <p class="text-light" *ngIf="hasBooks">Note: only user without any books on loan can be removed.</p>
+            <p class="text-light" *ngIf="hasBooks || hasWait">Note: only user without any books on loan or waiting list can be removed.</p>
             <br><br><br>
         </div>
     </div>

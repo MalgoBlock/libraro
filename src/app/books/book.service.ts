@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Book } from './book.model';
 import { Subject } from 'rxjs';
+import { UserService } from '../users/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,8 @@ export class BookService {
     'Terry Pratchett',
     'Fantasy novel. First of the Discworld series')
   ];
+
+  constructor (private userService: UserService) {}
 
   private sortCollection(property: string) {
     return this.bookCollection.sort((a, b) => {
@@ -61,6 +64,24 @@ export class BookService {
     this.pushUpdate();
   }
 
+  returnBook(book: Book) {
+    const bookIndex = this.checkIndex(book);
+    let passedOn = false;
+    if (book.waitingList.length > 0) {
+      for (let i = 0; i < book.waitingList.length; i++) {
+        const newBorrowerUid = +book.waitingList.slice(i, i + 1);
+        const status = this.userService.addNewBookFromWaitingList(book, newBorrowerUid);
+        if (status === 'added') {
+          book.waitingList.splice(i, 1);
+          passedOn = true;
+          break;
+        }
+      }
+    }
+    passedOn === false ? book.onLoan = false : book.onLoan = true;
+    this.editBook(bookIndex, book); // this will also push updates
+  }
+
   removeBook(index: number) {
     this.bookCollection.splice(index, 1);
     this.pushUpdate();
@@ -72,5 +93,18 @@ export class BookService {
 
   private pushUpdate() {
     this.listChanged.next(this.sortCollection('title').slice());
+  }
+
+  addWaiting(book: Book, uid: number) {
+    const index = this.checkIndex(book);
+    this.bookCollection[index].waitingList.push(uid);
+    this.pushUpdate();
+  }
+
+  removeWaiting(book: Book, uid: number) {
+    const bookIndex = this.checkIndex(book);
+    const userIndex = this.bookCollection[bookIndex].waitingList.findIndex(x => x === uid);
+    this.bookCollection[bookIndex].waitingList.splice(userIndex, 1);
+    this.pushUpdate();
   }
 }

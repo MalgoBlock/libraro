@@ -9,28 +9,35 @@ import { Book } from '../books/book.model';
 })
 export class UserService {
 
-  private currentUserId: number;
+  private currentUserId: number; // user.uid
   currentChanged = new Subject<number>();
   currentListChanged = new Subject<User>();
   currentLimitChanged = new Subject<number>();
   userListChanged = new Subject<User[]>();
+  userIdcount = 3;
 
   private userList: User[] = [
-    new User ('Bob', 3, 'user'),
-    new User ('Frank', 2, 'user'),
-    new User ('Librarian', 0, 'admin')
+    new User (1, 'Bob', 3, 'user'),
+    new User (2, 'Frank', 2, 'user'),
+    new User (3, 'Librarian', 0, 'admin')
   ];
+
+  setId() {
+    this.userIdcount += 1;
+    return this.userIdcount;
+  }
 
   getUsers() {
     return this.userList.slice();
   }
 
-  getUser(index: number) {
+  getUserByUid(uid: number) {
+    const index = this.findUserIndex(uid);
     return this.userList[index];
   }
 
-  setCurrent(index: number) {
-    this.currentUserId = index;
+  setCurrent(uid: number) {
+    this.currentUserId = uid;
     this.pushCurrentUpdate();
   }
 
@@ -43,7 +50,8 @@ export class UserService {
       const noUser = 'none';
       return noUser;
     }
-    return this.userList[this.currentUserId].accessLevel;
+    const index = this.findUserIndex(this.currentUserId);
+    return this.userList[index].accessLevel;
   }
 
   deselectCurrent() {
@@ -56,19 +64,37 @@ export class UserService {
   }
 
   checkUserBookLimit() {
-    const user = this.userList[this.currentUserId];
+    const index = this.findUserIndex(this.currentUserId);
+    const user = this.userList[index];
     return user.bookLimit - user.booksOnLoan.length;
   }
 
   // manage books
 
   addNewBook(book: Book) {
-    this.userList[this.currentUserId].booksOnLoan.push(book);
+    const index = this.findUserIndex(this.currentUserId);
+    this.userList[index].booksOnLoan.push(book);
     this.pushUserUpdate();
   }
 
+  addNewBookFromWaitingList(book: Book, uid: number) {
+    const index = this.findUserIndex(uid);
+    let status: string;
+    if (this.userList[index].booksOnLoan.length < this.userList[index].bookLimit) {
+      this.userList[index].booksOnLoan.push(book);
+      const waitingListIndex = this.userList[index].waitingList.indexOf(book);
+      this.userList[index].waitingList.splice(waitingListIndex, 1);
+      this.pushUserUpdate();
+      status = 'added';
+    } else {
+      status = 'rejected';
+    }
+    return status;
+  }
+
   checkBook(book: Book) { // find an id of a book on current user's list
-    return this.userList[this.currentUserId].booksOnLoan.indexOf(book);
+    const index = this.findUserIndex(this.currentUserId);
+    return this.userList[index].booksOnLoan.indexOf(book);
   }
 
   findBook(book: Book) { // find which user holds a particular book
@@ -76,7 +102,8 @@ export class UserService {
     for (let i = 0; i < this.userList.length; i++) {
         const bookId = this.userList[i].booksOnLoan.indexOf(book);
         if (bookId !== -1) {
-          userId = i;
+          // userId = i;
+          userId = this.userList[i].uid;
           break;
         }
     }
@@ -85,37 +112,70 @@ export class UserService {
 
   removeBook(book: Book) {
     const index = this.checkBook(book);
-    this.userList[this.currentUserId].booksOnLoan.splice(index, 1);
+    const userIndex = this.findUserIndex(this.currentUserId);
+    this.userList[userIndex].booksOnLoan.splice(index, 1);
     this.pushUserUpdate();
   }
 
   removeBookAsAdmin(book: Book, userId: number) {
-    const index = this.userList[userId].booksOnLoan.indexOf(book);
-    this.userList[userId].booksOnLoan.splice(index, 1);
+    const userIndex = this.findUserIndex(userId);
+    const index = this.userList[userIndex].booksOnLoan.indexOf(book);
+    this.userList[userIndex].booksOnLoan.splice(index, 1);
     this.pushUserUpdate();
   }
 
+  checkWaitingList(book: Book) {
+    const userIndex = this.findUserIndex(this.currentUserId);
+    return this.userList[userIndex].waitingList.indexOf(book);
+  }
+
+  addToWaitingList(book: Book) {
+    const userIndex = this.findUserIndex(this.currentUserId);
+    this.userList[userIndex].waitingList.push(book);
+  }
+
+  removeFromWaitingList(book: Book) {
+    const bookId = this.checkWaitingList(book);
+    const index = this.findUserIndex(this.currentUserId);
+    this.userList[index].waitingList.splice(bookId, 1);
+  }
+
+  removeFromWaitingListAsAdmin(book: Book, uid: number) {
+    const bookId = this.checkWaitingList(book);
+    const index = this.findUserIndex(uid);
+    this.userList[index].waitingList.splice(bookId, 1);
+  }
+
   private pushUserUpdate() {
-    this.currentListChanged.next(this.userList[this.currentUserId]);
+    const index = this.findUserIndex(this.currentUserId);
+    this.currentListChanged.next(this.userList[index]);
     this.currentLimitChanged.next(this.checkUserBookLimit());
   }
 
   // manage users
 
-  editUser(index: number, user: User) {
+  editUser(uid: number, user: User) {
+    const index = this.findUserIndex(uid);
     this.userList[index] = user;
     this.pushListUpdate();
   }
 
-  addUser(user: User) {
+  createUser(name: string, bookLimit: number, access: string) {
+    const uid = this.setId();
+    const user = new User (uid, name, bookLimit, access);
     this.userList.push(user);
     this.sortList();
     this.pushListUpdate();
   }
 
-  removeUser(index: number) {
+  removeUser(uid: number) {
+    const index = this.findUserIndex(uid);
     this.userList.splice(index, 1);
     this.pushListUpdate();
+  }
+
+  findUserIndex(uid: number) { // find user index with particular uid
+    return this.userList.findIndex(x => x.uid === uid); // will return -1 if not found
   }
 
   private pushListUpdate() {

@@ -5,8 +5,11 @@
   <br>
   <p class="list-group-item-text">Current status: <span *ngIf="!book.onLoan">available</span>
                                                   <span *ngIf="book.onLoan">on loan</span></p>
+  <p class="list-group-item-text" *ngIf="book.waitingList.length > 0">Waiting list length: {{ book.waitingList.length }}</p>
   <hr>
   <button *ngIf="enableBorrowing" class="btn btn-secondary" (click)="onBorrow()">Borrow</button>
   <button *ngIf="enableReturn" class="btn btn-secondary" (click)="onReturn()">Return</button>
+  <button *ngIf="enableWaitingListAdd" class="btn btn-secondary" (click)="onAddWait()">Add to waiting list</button>
+  <button *ngIf="enableWaitingListRemove" class="btn btn-secondary" (click)="onRemoveWait()">Remove from waiting list</button>
 </div>
 

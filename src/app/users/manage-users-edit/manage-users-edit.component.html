@@ -38,7 +38,15 @@
                       <h5 class="list-group-item-heading">{{ book.title }}</h5>
                       <p class="list-group-item-text pl-3">- {{ book.author }}</p>
                       <button class="btn btn-secondary text-danger ml-auto" (click)="onReturn(book)">Return</button>
-                  </a>         
+                  </a>   
+                  <hr>
+                  <p *ngIf="hasWait">Books on waiting list:</p>
+                  <a class="col-12 list-group-item clearfix d-flex text-dark" style="cursor: pointer;"
+                    *ngFor="let bookWait of user.waitingList">
+                      <h5 class="list-group-item-heading">{{ bookWait.title }}</h5>
+                      <p class="list-group-item-text pl-3">- {{ bookWait.author }}</p>
+                      <button class="btn btn-secondary text-danger ml-auto" (click)="onRemoveWait(bookWait)">Remove</button>
+                  </a>        
               </div>
               <br><br>      
         </div>

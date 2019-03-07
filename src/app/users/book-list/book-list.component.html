@@ -11,6 +11,17 @@
               <p class="list-group-item-text pl-3">- {{ book.author }}</p>
               <button class="btn btn-secondary ml-auto" (click)="onReturn(book)">Return</button>
           </a>
+          <hr>
+          <p>Waiting list:</p>
+          <a class="col-md-6 list-group-item clearfix d-flex text-dark bg-secondary align-baseline" style="cursor: pointer;"
+            *ngFor="let waitBook of waitingList; let i=index">
+              <h5 class="list-group-item-heading">{{ waitBook.title }}</h5>
+              <p class="list-group-item-text pl-3">- {{ waitBook.author }}</p>
+              <p class="list-group-item-text pl-3">waiting list position: 
+                {{ getPosition(waitBook) }}
+                / {{ waitBook.waitingList.length }}</p>
+              <button class="btn btn-secondary ml-auto" (click)="onRemove(waitBook)">Remove</button>
+          </a>
           <br><br><br>
       </div>
   </div>
