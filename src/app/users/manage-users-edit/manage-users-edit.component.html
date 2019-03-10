@@ -1,6 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="bg-secondary w-100">
+            <p *ngIf="isNew">New user:</p>
             <form (ngSubmit)="onSubmit(form)" #form="ngForm">
                 <div class="form-group">
                     <label for="name">Name:</label>
@@ -33,6 +34,7 @@
               <br>
               <div *ngIf="!isNew">
                   <p *ngIf="hasBooks">Books on loan:</p>
+                  <p *ngIf="!hasBooks">No books on loan</p>
                   <a class="col-12 list-group-item clearfix d-flex text-dark" style="cursor: pointer;"
                     *ngFor="let book of user.booksOnLoan">
                       <h5 class="list-group-item-heading">{{ book.title }}</h5>
@@ -41,6 +43,7 @@
                   </a>   
                   <hr>
                   <p *ngIf="hasWait">Books on waiting list:</p>
+                  <p *ngIf="!hasWait">No books on waiting list</p>
                   <a class="col-12 list-group-item clearfix d-flex text-dark" style="cursor: pointer;"
                     *ngFor="let bookWait of user.waitingList">
                       <h5 class="list-group-item-heading">{{ bookWait.title }}</h5>

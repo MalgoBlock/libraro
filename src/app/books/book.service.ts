@@ -11,15 +11,18 @@ export class BookService {
   listChanged = new Subject<Book[]>();
 
   private bookCollection: Book[] = [
-    new Book('The lord of the rings',
+    new Book('Return of the king',
       'J.R.R. Tolkien',
-      'Epic high fantasy novel'),
+      'Epic high fantasy novel. Third part of Lord of the Rings trilogy.'),
     new Book('The gift of rain',
       'Tan Twan Eng',
       'Set in Penang, 1939, this book presents a story of betrayal, cruelty, courage and love.'),
-    new Book('The colour of magic',
+    new Book('Equal rites',
     'Terry Pratchett',
-    'Fantasy novel. First of the Discworld series')
+    'Comic fantasy novel. Third of the Discworld series'),
+    new Book('Snow Crash',
+    'Neal Stephenson',
+    'Science fiction novel.')
   ];
 
   constructor (private userService: UserService) {}

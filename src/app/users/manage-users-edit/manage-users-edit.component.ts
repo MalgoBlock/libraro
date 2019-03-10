@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Book } from 'src/app/books/book.model';
 import { UserService } from '../user.service';
@@ -6,13 +6,14 @@ import { User } from '../user.model';
 import { NgForm } from '@angular/forms';
 import { BookService } from 'src/app/books/book.service';
 import { SharedService } from 'src/app/shared/shared.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-manage-users-edit',
   templateUrl: './manage-users-edit.component.html',
   styleUrls: ['./manage-users-edit.component.css']
 })
-export class ManageUsersEditComponent implements OnInit {
+export class ManageUsersEditComponent implements OnInit, OnDestroy {
   isNew: boolean;
   userId: number;
   name: string;
@@ -20,6 +21,7 @@ export class ManageUsersEditComponent implements OnInit {
   user: User;
   hasBooks: boolean;
   hasWait: boolean;
+  subscription: Subscription;
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,
@@ -47,6 +49,12 @@ export class ManageUsersEditComponent implements OnInit {
         }
       }
     );
+    this.userService.currentListChanged.subscribe(
+      (user: User) => {
+        user.booksOnLoan.length === 0 ? this.hasBooks = false : this.hasBooks = true;
+        user.waitingList.length === 0 ? this.hasWait = false : this.hasWait = true;
+      }
+    );
   }
 
   onSubmit(form: NgForm) {
@@ -70,4 +78,7 @@ export class ManageUsersEditComponent implements OnInit {
     this.bookService.removeWaiting(book, this.userId);
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
