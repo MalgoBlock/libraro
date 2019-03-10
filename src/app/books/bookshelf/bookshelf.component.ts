@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Book } from '../book.model';
 import { BookService } from '../book.service';
 import { UserService } from 'src/app/users/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-bookshelf',
@@ -15,12 +16,16 @@ export class BookshelfComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private bookService: BookService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.bookshelf = this.bookService.getCollection();
     this.subscription = this.bookService.listChanged.subscribe(
       (books: Book[]) => this.bookshelf = books
+    );
+    this.route.params.subscribe(
+      (params) => console.log('route change..' + params.id)
     );
   }
 
