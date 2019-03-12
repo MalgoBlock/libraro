@@ -1,0 +1,25 @@
+<div class="container-fluid">
+    <div class="row justify-content-center align-content-center">
+        <div class="col-10 bg-secondary text-body">
+            <br>
+            <p class="text-light" *ngIf="!dataService.isAuthenticated()">To enable data managment register / log in with an email address</p>
+            <br>
+            <button class="btn btn-outline-info mx-2" (click)="onRegister()">Register</button>
+            <button class="btn btn-info mx-2" *ngIf="!dataService.isAuthenticated()" (click)="onLogin()">Log in</button>
+            <button class="btn btn-info mx-2" *ngIf="dataService.isAuthenticated()" (click)="onLogout()">Log out</button>
+            <div *ngIf="dataService.isAuthenticated()">
+              <br>
+              <p class="text-light ml-2">You are logged in!</p>
+              <hr>
+              <button class="btn btn-info mx-2" (click)="onSave()">Save data</button>
+              <button class="btn btn-info mx-2" (click)="onFetch()">Fetch data</button>
+              <br><br>
+              <p class="text-light ml-2">Saving your data will overwrite any data previously saved.</p>
+              <p class="text-light ml-2">Fetching your data will overwrite any data in your current session.</p>
+            </div>
+            <br>
+            <router-outlet></router-outlet>
+            <br><br><br>
+          </div>
+    </div>
+  </div>

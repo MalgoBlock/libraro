@@ -154,6 +154,11 @@ export class UserService {
 
   // manage users
 
+  replaceUsers(users: User[]) {
+    this.userList = users;
+    this.pushListUpdate();
+  }
+
   editUser(uid: number, user: User) {
     const index = this.findUserIndex(uid);
     this.userList[index] = user;

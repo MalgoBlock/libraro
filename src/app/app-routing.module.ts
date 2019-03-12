@@ -11,6 +11,8 @@ import { ManageBooksDetailComponent } from './books/manage-books-detail/manage-b
 import { ManageUsersDetailComponent } from './users/manage-users-detail/manage-users-detail.component';
 import { ManageUsersEditComponent } from './users/manage-users-edit/manage-users-edit.component';
 import { RoleGuardService } from './role-guard.service';
+import { ManageDataComponent } from './data-manager/manage-data/manage-data.component';
+import { LoggingComponent } from './data-manager/logging/logging.component';
 
 const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -27,6 +29,10 @@ const routes: Routes = [
         children: [
             {path: ':id', component: ManageUsersDetailComponent},
             {path: 'edit/:id', component: ManageUsersEditComponent}
+        ]},
+    {path: 'manageData', component: ManageDataComponent,
+        children: [
+            {path: ':id', component: LoggingComponent}
         ]},
     {path: '**' , redirectTo: '', pathMatch: 'full'}
 ];

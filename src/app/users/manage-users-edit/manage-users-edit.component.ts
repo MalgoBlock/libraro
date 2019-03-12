@@ -6,14 +6,13 @@ import { User } from '../user.model';
 import { NgForm } from '@angular/forms';
 import { BookService } from 'src/app/books/book.service';
 import { SharedService } from 'src/app/shared/shared.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-manage-users-edit',
   templateUrl: './manage-users-edit.component.html',
   styleUrls: ['./manage-users-edit.component.css']
 })
-export class ManageUsersEditComponent implements OnInit, OnDestroy {
+export class ManageUsersEditComponent implements OnInit {
   isNew: boolean;
   userId: number;
   name: string;
@@ -21,7 +20,6 @@ export class ManageUsersEditComponent implements OnInit, OnDestroy {
   user: User;
   hasBooks: boolean;
   hasWait: boolean;
-  subscription: Subscription;
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,
@@ -76,9 +74,5 @@ export class ManageUsersEditComponent implements OnInit, OnDestroy {
   onRemoveWait(book: Book) {
     this.userService.removeFromWaitingListAsAdmin(book, this.userId);
     this.bookService.removeWaiting(book, this.userId);
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }
