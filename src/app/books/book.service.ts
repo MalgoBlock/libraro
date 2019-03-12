@@ -62,6 +62,11 @@ export class BookService {
     this.pushUpdate();
   }
 
+  replaceCollection(books: Book[]) {
+    this.bookCollection = books;
+    this.pushUpdate();
+  }
+
   editBook(index: number, book: Book) {
     this.bookCollection[index] = book;
     this.pushUpdate();

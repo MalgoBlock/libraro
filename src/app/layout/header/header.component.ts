@@ -62,6 +62,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isAdmin = false;
   }
 
+  onManage() {
+    this.router.navigate(['manageData']);
+  }
+
   ngOnDestroy() {
     this.subscription1.unsubscribe();
     this.subscription2.unsubscribe();

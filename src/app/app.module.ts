@@ -16,6 +16,9 @@ import { ManageUsersComponent } from './users/manage-users/manage-users.componen
 import { ManageBooksDetailComponent } from './books/manage-books-detail/manage-books-detail.component';
 import { ManageUsersDetailComponent } from './users/manage-users-detail/manage-users-detail.component';
 import { ManageUsersEditComponent } from './users/manage-users-edit/manage-users-edit.component';
+import { ManageDataComponent } from './data-manager/manage-data/manage-data.component';
+import { LoggingComponent } from './data-manager/logging/logging.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,12 +34,15 @@ import { ManageUsersEditComponent } from './users/manage-users-edit/manage-users
     ManageUsersComponent,
     ManageBooksDetailComponent,
     ManageUsersDetailComponent,
-    ManageUsersEditComponent
+    ManageUsersEditComponent,
+    ManageDataComponent,
+    LoggingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

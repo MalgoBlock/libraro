@@ -24,13 +24,13 @@ export class BookshelfComponent implements OnInit, OnDestroy {
     this.subscription = this.bookService.listChanged.subscribe(
       (books: Book[]) => this.bookshelf = books
     );
-    this.route.params.subscribe(
-      (params) => console.log('route change..' + params.id)
-    );
   }
 
   checkLoan(book: Book) {
     const currentUid = this.userService.checkCurrent();
+    if ( currentUid === undefined ) {
+      return false;
+    }
     const currentUser = this.userService.getUserByUid(currentUid);
     const index = currentUser.booksOnLoan.indexOf(book);
     if (index !== -1) {

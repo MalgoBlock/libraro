@@ -21,9 +21,12 @@
     <ul class="nav navbar-nav navbar-right">
         <button class="btn btn-dark text-primary mr-2" *ngIf="currentUser !== undefined" (click)="onDeselect()">Deselect user</button>
         <li class="dropdown"  appDropdown>
-            <button class="btn btn-dark text-info dropdown-toggle" data-toggle="dropdown">Select user</button>
+            <button class="btn btn-dark text-info dropdown-toggle" data-toggle="dropdown">Manage</button>
             <ul class="dropdown-menu dropdown-menu-right">
+              <li class="dropdown-item disabled text-info">Select user:</li>
               <li class="dropdown-item" *ngFor="let user of usersList; let i=index" (click)="onSelect(i)">{{ user.name }}</li>
+              <div class="dropdown-divider"></div>
+              <li class="dropdown-item" (click)="onManage()">Manage data</li>
             </ul>
         </li>    
     </ul>    
