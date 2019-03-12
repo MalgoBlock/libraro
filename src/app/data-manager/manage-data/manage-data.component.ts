@@ -11,6 +11,10 @@ export class ManageDataComponent {
   constructor(private router: Router,
               private dataService: DataService) { }
 
+  isAuthenticated() {
+    return this.dataService.isAuthenticated();
+  }
+
   onRegister() {
     this.router.navigate(['/manageData', 'register']);
   }
