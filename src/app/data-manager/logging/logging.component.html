@@ -1,11 +1,11 @@
 <hr>
-<p class="text-light" *ngIf="!register && !login">Please select above to register or log in!</p>
+<p class="text-info" *ngIf="!register && !login">Please select above to register or log in!</p>
 <div class="col-4" *ngIf="register || login">
-  <p *ngIf="register">Register with an email and password:</p>
-  <p *ngIf="login">Log in with an email and password:</p>
+  <p class="text-info" *ngIf="register">Register with an email and password:</p>
+  <p class="text-info" *ngIf="login">Log in with an email and password:</p>
   <form (ngSubmit)="onSubmit(form)" #form="ngForm">
       <div class="form-group">
-          <label for="email">Email:</label>
+          <label class="text-info" for="email">Email:</label>
           <input 
           type="email" 
           id="email" 
@@ -15,7 +15,7 @@
           required>
       </div>  
       <div class="form-group">
-          <label for="password">Password (min. 6 characters):</label>
+          <label class="text-info" for="password">Password (min. 6 characters):</label>
           <input 
           type="password" 
           id="password" 
