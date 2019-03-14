@@ -6,3 +6,12 @@ html {
 body {
     height: 100%;
 }
+
+.app-blur {
+    background-image: linear-gradient(rgba(23, 162, 184,0.1), rgba(23, 162, 184,0.1)),
+            url(./assets/trianglify_blur.png);
+}
+
+.list-group-item {
+    background-color: rgba(255, 255, 255, 0.4)!important;
+}

@@ -28,4 +28,19 @@ export class SharedService {
       }
     }
   }
+
+  filterBy(property: string, condition: string, collection: any[]) {
+
+    if (collection.length === 0 || condition === undefined) { return collection; }
+
+    const resultArray = [];
+    const conditionLowerCase = condition.toLowerCase();
+    for (const item of collection) {
+      const comparedProperty = item[property].toLowerCase();
+      if (comparedProperty.includes(conditionLowerCase)) {
+        resultArray.push(item);
+      }
+    }
+    return resultArray;
+  }
 }

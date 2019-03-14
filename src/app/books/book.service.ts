@@ -53,6 +53,10 @@ export class BookService {
     return this.sortCollection('title').slice();
   }
 
+  getSortedCollection(sortBy: string) {
+    return this.sortCollection(sortBy).slice();
+  }
+
   getBook(index: number) {
     return this.bookCollection[index];
   }
