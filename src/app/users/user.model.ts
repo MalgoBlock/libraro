@@ -1,8 +1,5 @@
-import { Injectable } from '@angular/core';
-
 import { Book } from '../books/book.model';
 
-@Injectable()
 export class User {
     public uid: number;
     public name: string;

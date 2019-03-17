@@ -4,16 +4,16 @@
           <br>
           <h5>Manage Bookshelf:</h5>
           <br>
-          <a class="list-group-item clearfix d-flex-sm text-dark align-items-baseline" style="cursor: pointer;"
+          <a class="list-group-item clearfix d-sm-flex text-dark align-items-baseline" style="cursor: pointer;"
             *ngFor="let book of books; let i=index">
               <div class="col-6-sm d-flex align-items-baseline">
-                <h5 class="list-group-item-heading">{{ book.title | uppercase }}</h5>
+                <h5 class="list-group-item-heading">{{ book.title }}</h5>
                 <p class="list-group-item-text pl-3">- {{ book.author }}</p>  
               </div>
-              <div class="col-6-sm d-flex align-items-baseline">
+              <div class="col-6-sm d-flex align-items-baseline ml-auto">
                 <p class="list-group-item-text text-info" *ngIf="!book.onLoan">available</p>
                 <p class="list-group-item-text text-danger" *ngIf="book.onLoan">on loan</p>
-                <button class="btn btn-outline-dark mr-2 ml-auto" (click)="onEdit(i)">Edit</button>
+                <button class="btn btn-outline-dark mr-2 ml-2" (click)="onEdit(i)">Edit</button>
                 <button class="btn btn-outline-dark" *ngIf="!book.onLoan" (click)="onDelete(i)" style="width: 120px">Delete</button>
                 <button class="btn btn-outline-dark" *ngIf="book.onLoan" (click)="onCheck(i)" style="width: 120px">Check User</button>                  
               </div>
