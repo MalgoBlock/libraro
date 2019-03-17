@@ -63,6 +63,7 @@ export class ManageUsersEditComponent implements OnInit {
       this.user.bookLimit = form.value.bookLimit;
       this.userService.editUser(this.userId, this.user);
     }
+    this.sharedService.checkIfWaitingAvailable(this.user);
   }
 
   onReturn(book: Book) {
