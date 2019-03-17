@@ -1,16 +1,16 @@
 <div class="container-fluid">
-  <div class="row app-blur">
+  <div class="row app-blur d-flex">
       <div class="col-lg-6">
           <br>
           <h5>Manage Bookshelf:</h5>
           <br>
-          <a class="list-group-item clearfix d-flex text-dark align-items-baseline" style="cursor: pointer;"
+          <a class="list-group-item clearfix d-flex-sm text-dark align-items-baseline" style="cursor: pointer;"
             *ngFor="let book of books; let i=index">
-              <div class="col-6 d-flex align-items-baseline">
-                <h5 class="list-group-item-heading">{{ book.title }}</h5>
+              <div class="col-6-sm d-flex align-items-baseline">
+                <h5 class="list-group-item-heading">{{ book.title | uppercase }}</h5>
                 <p class="list-group-item-text pl-3">- {{ book.author }}</p>  
               </div>
-              <div class="col-6 d-flex align-items-baseline">
+              <div class="col-6-sm d-flex align-items-baseline">
                 <p class="list-group-item-text text-info" *ngIf="!book.onLoan">available</p>
                 <p class="list-group-item-text text-danger" *ngIf="book.onLoan">on loan</p>
                 <button class="btn btn-outline-dark mr-2 ml-auto" (click)="onEdit(i)">Edit</button>
@@ -19,8 +19,8 @@
               </div>
           </a>
           <br>
-          <button class="btn btn-light text-info" (click)="onAdd()">Add new</button>
-          <br><br><br>
+          <button class="btn btn-light text-info m-sm-2" (click)="onAdd()">Add new</button>
+          <br>
       </div>
       <div class="col-lg-6">
         <br>

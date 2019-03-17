@@ -1,6 +1,6 @@
 <hr>
 <p class="text-info" *ngIf="!register && !login">Please select above to register or log in!</p>
-<div class="col-4" *ngIf="register || login">
+<div class="col-md-6" *ngIf="register || login">
   <p class="text-info" *ngIf="register">Register with an email and password:</p>
   <p class="text-info" *ngIf="login">Log in with an email and password:</p>
   <form (ngSubmit)="onSubmit(form)" #form="ngForm">

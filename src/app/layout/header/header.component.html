@@ -1,30 +1,31 @@
 
-<nav class="navbar navbar-expand bg-dark text-info align-items-baseline">  
+<nav class="navbar navbar-expand-sm bg-dark text-info align-items-baseline">  
     <a class="navbar-brand text-info h1 mb-1" [routerLink]="['/']" style="cursor: pointer;">Libraro</a>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav">
+    <ul class="navbar-nav mr-auto">
             <li class="nav-item pl-3">  
               <a class="nav-link text-info mr-2" [routerLink]="['/bookshelf']" style="cursor: pointer;">Bookshelf</a>
             </li>
             <li class="nav-item"> 
               <div class="d-flex align-items-baseline" *ngIf="currentUser !== undefined && !isAdmin"> 
                 <a class="nav-link text-info"  [routerLink]="['/booklist', currentUserIndex]" style="cursor: pointer;">{{ currentUser.name }}'s Books</a>
-                <p class="ml-3">books on loan: {{ currentLimit }} / {{ currentUser.bookLimit }} </p>
+                <p class="ml-3 collapse navbar-collapse">books on loan: {{ currentLimit }} / {{ currentUser.bookLimit }} </p>
               </div>
+            </li> 
+            <li class="nav-item">  
               <div class="d-flex align-items-baseline" *ngIf="isAdmin"> 
                   <a class="nav-link text-info"  [routerLink]="['/manageBooks']" style="cursor: pointer;">Manage Books</a>
-                  <a class="nav-link text-info"  [routerLink]="['/manageUsers']" style="cursor: pointer;">Manage Users</a>  
+                  <a class="nav-link text-info ml-2"  [routerLink]="['/manageUsers']" style="cursor: pointer;">Manage Users</a>  
               </div>
             </li>  
-        </ul>    
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-        <button class="btn btn-dark text-secondary mr-2" *ngIf="currentUser !== undefined" (click)="onDeselect()">Deselect user</button>
+    </ul>    
+    <ul class="nav navbar-nav ml-auto">
+        <button class="btn btn-dark text-secondary mr-2 collapse navbar-collapse" *ngIf="currentUser !== undefined" (click)="onDeselect()">Deselect user</button>
         <li class="dropdown"  appDropdown>
             <button class="btn btn-dark text-info dropdown-toggle" data-toggle="dropdown">Manage</button>
-            <ul class="dropdown-menu dropdown-menu-right">
+            <ul class="dropdown-menu dropdown-menu-right" style="position: absolute">
               <li class="dropdown-item disabled text-info">Select user:</li>
               <li class="dropdown-item" *ngFor="let user of usersList; let i=index" (click)="onSelect(i)">{{ user.name }}</li>
+              <button class="btn btn-outline-secondary ml-2" *ngIf="currentUser !== undefined" (click)="onDeselect()">Deselect user</button>
               <div class="dropdown-divider"></div>
               <li class="dropdown-item" (click)="onManage()">Manage data</li>
             </ul>

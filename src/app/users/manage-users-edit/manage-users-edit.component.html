@@ -39,7 +39,7 @@
                     *ngFor="let book of user.booksOnLoan">
                       <h5 class="list-group-item-heading">{{ book.title }}</h5>
                       <p class="list-group-item-text pl-3">- {{ book.author }}</p>
-                      <button class="btn btn-light border border-danger text-danger ml-auto" (click)="onReturn(book)">Return</button>
+                      <button class="btn btn-outline-danger ml-auto" (click)="onReturn(book)">Return</button>
                   </a>   
                   <hr>
                   <p *ngIf="hasWait">Books on waiting list:</p>
@@ -48,7 +48,7 @@
                     *ngFor="let bookWait of user.waitingList">
                       <h5 class="list-group-item-heading">{{ bookWait.title }}</h5>
                       <p class="list-group-item-text pl-3">- {{ bookWait.author }}</p>
-                      <button class="btn btn-light border border-danger text-danger ml-auto" (click)="onRemoveWait(bookWait)">Remove</button>
+                      <button class="btn btn-outline-danger ml-auto" (click)="onRemoveWait(bookWait)">Remove</button>
                   </a>        
               </div>
               <br><br>      
