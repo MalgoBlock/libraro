@@ -37,13 +37,13 @@
               <p class="list-group-item-text text-danger ml-auto" *ngIf="book.onLoan && !checkLoan(book)">on loan</p>
               <p class="list-group-item-text text-primary ml-auto" *ngIf="book.onLoan && checkLoan(book)">my loan</p>
             </a>
-          <br><br><br>
+          <br>
       </div>
       <div class="col-sm-6">
         <br>
         <p>Book details:</p>
         <router-outlet></router-outlet>
-        <br><br><br>
+        <br>
     </div>
   </div>
 </div>

@@ -1,5 +1,6 @@
 .app-background {
-    height: 100%;
+    min-height: 100%;
     background-image: linear-gradient(rgba(23, 162, 184,0.15), rgba(23, 162, 184,0.15)),
-            url(../assets/trianglify_background.png);
+            url("../assets/trianglify_background.png");
+    background-size: cover;
 }

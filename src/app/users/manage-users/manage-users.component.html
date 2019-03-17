@@ -5,7 +5,7 @@
           <p>Manage Users:</p>
           <a class="list-group-item clearfix text-dark" style="cursor: pointer;"
             *ngFor="let user of users; let i=index">
-                <div class="d-flex align-items-baseline px-0" *ngIf="user.accessLevel !== 'admin'">
+                <div class="d-flex-sm align-items-baseline px-0" *ngIf="user.accessLevel !== 'admin'">
                   <div class="col-10 d-flex align-items-baseline pl-0">
                     <div class="col-2 mr-auto pl-0">
                         <h5 class="list-group-item-heading">{{ user.name }}</h5>

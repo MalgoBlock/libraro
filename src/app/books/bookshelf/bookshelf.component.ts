@@ -31,7 +31,10 @@ export class BookshelfComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.bookshelf = this.bookService.getCollection();
     this.bookSubscription = this.bookService.listChanged.subscribe(
-      (books: Book[]) => this.bookshelf = this.bookService.getSortedCollection(this.sortSelect)
+      (books: Book[]) => {
+        this.sortSelect === 'title' ? this.bookshelf = books :
+        this.bookshelf = this.bookService.getSortedCollection(this.sortSelect);
+      }
     );
     this.formSubscription = this.sortByForm.form.valueChanges.subscribe(
       value => {
