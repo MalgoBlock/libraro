@@ -74,7 +74,7 @@ export class UserService {
   addNewBook(book: Book) {
     const index = this.findUserIndex(this.currentUserId);
     this.userList[index].booksOnLoan.push(book);
-    this.pushUserUpdate();
+    this.pushUserUpdate(this.currentUserId);
   }
 
   addNewBookFromWaitingList(book: Book, uid: number) {
@@ -84,7 +84,7 @@ export class UserService {
       this.userList[index].booksOnLoan.push(book);
       const waitingListIndex = this.userList[index].waitingList.indexOf(book);
       this.userList[index].waitingList.splice(waitingListIndex, 1);
-      this.pushUserUpdate();
+      this.pushUserUpdate(uid);
       status = 'added';
     } else {
       status = 'rejected';
@@ -114,14 +114,14 @@ export class UserService {
     const index = this.checkBook(book);
     const userIndex = this.findUserIndex(this.currentUserId);
     this.userList[userIndex].booksOnLoan.splice(index, 1);
-    this.pushUserUpdate();
+    this.pushUserUpdate(this.currentUserId);
   }
 
   removeBookAsAdmin(book: Book, userId: number) {
     const userIndex = this.findUserIndex(userId);
     const index = this.userList[userIndex].booksOnLoan.indexOf(book);
     this.userList[userIndex].booksOnLoan.splice(index, 1);
-    this.pushUserUpdate();
+    this.pushUserUpdate(userId);
   }
 
   checkWaitingList(book: Book) {
@@ -146,8 +146,8 @@ export class UserService {
     this.userList[index].waitingList.splice(bookId, 1);
   }
 
-  private pushUserUpdate() {
-    const index = this.findUserIndex(this.currentUserId);
+  private pushUserUpdate(uid: number) {
+    const index = this.findUserIndex(uid);
     this.currentListChanged.next(this.userList[index]);
     this.currentLimitChanged.next(this.checkUserBookLimit());
   }

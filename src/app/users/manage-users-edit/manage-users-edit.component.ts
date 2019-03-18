@@ -20,6 +20,7 @@ export class ManageUsersEditComponent implements OnInit {
   user: User;
   hasBooks: boolean;
   hasWait: boolean;
+  pattern = '[1-9]';
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,
@@ -36,23 +37,34 @@ export class ManageUsersEditComponent implements OnInit {
           this.bookLimit = 2;
           this.hasBooks = false;
           this.hasWait = false;
+          this.pattern = '[1-9]';
         } else {
           this.isNew = false;
           this.userId = +params.id;
           this.user = this.userService.getUserByUid(this.userId);
           this.name = this.user.name;
           this.bookLimit = this.user.bookLimit;
-          this.user.booksOnLoan.length === 0 ? this.hasBooks = false : this.hasBooks = true;
-          this.user.waitingList.length === 0 ? this.hasWait = false : this.hasWait = true;
+          this.setHasBooksAndHasWait();
         }
       }
     );
     this.userService.currentListChanged.subscribe(
       (user: User) => {
-        user.booksOnLoan.length === 0 ? this.hasBooks = false : this.hasBooks = true;
-        user.waitingList.length === 0 ? this.hasWait = false : this.hasWait = true;
+        this.user = user;
+        this.setHasBooksAndHasWait();
       }
     );
+  }
+
+  private setHasBooksAndHasWait() {
+    if ( this.user.booksOnLoan.length === 0 ) {
+      this.hasBooks = false;
+      this.pattern = '[1-9]';
+    } else {
+      this.hasBooks = true;
+      this.pattern = '[' + this.user.booksOnLoan.length + '-9]';
+    }
+    this.user.waitingList.length === 0 ? this.hasWait = false : this.hasWait = true;
   }
 
   onSubmit(form: NgForm) {
@@ -60,8 +72,12 @@ export class ManageUsersEditComponent implements OnInit {
       this.userService.createUser(form.value.name, form.value.bookLimit, 'user');
     } else {
       this.user.name = form.value.name;
-      this.user.bookLimit = form.value.bookLimit;
-      this.userService.editUser(this.userId, this.user);
+      if (this.user.booksOnLoan.length > form.value.bookLimit) {
+        console.log('ha ha!');
+      } else {
+        this.user.bookLimit = form.value.bookLimit;
+        this.userService.editUser(this.userId, this.user);
+      }
     }
     this.sharedService.checkIfWaitingAvailable(this.user);
   }
