@@ -23,9 +23,10 @@
                     name="bookLimit"
                     min=1
                     max=9
-                    pattern="[1-9]"
+                    [pattern]="pattern"
                     required>
                 </div> 
+                <p *ngIf="hasBooks">Note: Book limit cannot be reduced below the number of books currently on loan.</p>
                 <button 
                     class="btn btn-light text-info" 
                     type="submit"
